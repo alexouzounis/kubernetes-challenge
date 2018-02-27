@@ -1,0 +1,13 @@
+piVersion: v1
+kind: Service
+metadata:
+  name: k8sc-service
+spec:
+  type: NodePort
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 3000
+      name: k8sc-web
+  selector:
+    app: k8sc-app

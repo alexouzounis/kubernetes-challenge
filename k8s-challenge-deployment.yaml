@@ -1,0 +1,28 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: k8sc-app
+  name: k8sc-app
+
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels: {app: k8sc-app}
+    spec:
+      containers:
+      - name: k8sc-app
+        image: localhost:3000/k8sc-image
+        envFrom:
+        - configMapRef:
+            name: k8sc-config
+        resources:
+          requests:
+            memory: 512Mi
+            cpu: 250m
+          limits:
+            memory: 512Mi
+            cpu: 250m
+        ports:
+        - {containerPort: 3000}

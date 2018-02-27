@@ -27,3 +27,24 @@ You can use Minikube's docker engine from your host machine to make the image av
 * Create a `Makefile` for defining the build, deploy and test workflows
 * Get the application to return your name instead of "Hello unknown"
 
+## Solution 
+*  How to build 
+*  make build  <- to build image
+*  make deploy <- to deploy to Minikube cluster 
+#  Assumption 
+*  Minikube use registry path localhost:3000  
+## Limitation 
+*  I am sorry that  I don't have minikube installed.  This solution deployed on my test cluster.
+*  I just build image and push to my public registory to test 
+*  image path : samsonbabu/k8sc-image:0.1
+*  You may use my public registory and update following configMap (data:NAME) to your name to test
+*  k8s-challenge-configmap.yaml 
+*  also update  k8s-challenge-deployment.yaml  if you choose test public image
+*  image: samsonbabu/k8sc-image:0.1
+# Test  
+*  curl http://<yourdomain>/k8s-challenge OR 
+*  kubectl get service k8sc-service -o wide 
+*  note down port 80:<port?> 
+*  kubectl get pod -o wide 
+*  note down NODE
+* curl http://<NODE IP>:<port>
