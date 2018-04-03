@@ -2,17 +2,18 @@
   "name": "kubernetes-challenge",
   "version": "0.0.1",
   "description": "Kubernetes challenge",
-  "repository": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "echo js tests"
   },
-  "repository" :
-  { "type" : "git"
-  , "url" : "https://github.com/alexouzounis/kubernetes-challenge.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexouzounis/kubernetes-challenge.git"
   },
   "license": "Apache-2.0",
   "dependencies": {
+    "@godaddy/terminus": "^2.2.0",
     "express": "^4.16.2"
   }
 }
