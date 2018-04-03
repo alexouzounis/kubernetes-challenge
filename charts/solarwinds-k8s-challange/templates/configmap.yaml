@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "solarwinds-k8s-challange.fullname" . }}
+  labels:
+    app: {{ template "solarwinds-k8s-challange.name" . }}
+    chart: {{ template "solarwinds-k8s-challange.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+data:
+  helloName: {{ .Values.user.name | title }}

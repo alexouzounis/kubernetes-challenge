@@ -1,0 +1,61 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{ template "solarwinds-k8s-challange.fullname" . }}
+  labels:
+    app: {{ template "solarwinds-k8s-challange.name" . }}
+    chart: {{ template "solarwinds-k8s-challange.chart" . }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ template "solarwinds-k8s-challange.name" . }}
+      release: {{ .Release.Name }}
+  template:
+    metadata:
+      annotations:
+        buildID: {{ .Values.buildID }}
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+      labels:
+        app: {{ template "solarwinds-k8s-challange.name" . }}
+        release: {{ .Release.Name }}
+        draft: {{ default "draft-app" .Values.draft }}
+    spec:
+       containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.internalPort }}
+              protocol: TCP
+          env:
+          - name: NAME
+            valueFrom:
+              configMapKeyRef:
+                name: {{ template "solarwinds-k8s-challange.fullname" . }}
+                key: helloName
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.service.livenessProbe.path }}
+              port: http
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.service.readinessProbe.path }}
+              port: http
+          resources:
+{{ toYaml .Values.resources | indent 12 }}
+    {{- with .Values.nodeSelector }}
+      nodeSelector:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}
