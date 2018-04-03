@@ -1,0 +1,26 @@
+# Default values for node.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+replicaCount: 1
+image:
+  pullPolicy: Never
+service:
+  name: node
+  type: ClusterIP
+  externalPort: 8080
+  internalPort: 3000
+  livenessProbe:
+    path: /healthcheck 
+  readinessProbe:
+    path: /healthcheck  
+resources:
+  limits:
+    cpu: 100m
+    memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+user:
+  name: tom
+ingress:
+  enabled: false
