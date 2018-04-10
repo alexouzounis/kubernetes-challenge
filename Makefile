@@ -14,6 +14,14 @@ init:
 build:
 	docker build --tag $(NAME):$(TAG) $(HERE)
 
+.PHONY: deploy/kubectl
+deploy/kube:
+	$(foreach config, configmap deployment service ingress, kubectl create -f "$(HERE)/charts/vanilla/$(config).yaml" || exit 1;)
+
+.PHONY: clean/kubectl
+clean/kube:
+	$(foreach config, configmap deployment service ingress, kubectl delete -f "$(HERE)/charts/vanilla/$(config).yaml" || exit 1;)
+
 .PHONY: test
 test: test/init test/service test/ingress
 
