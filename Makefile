@@ -22,6 +22,16 @@ deploy/kube:
 clean/kube:
 	$(foreach config, configmap deployment service ingress, kubectl delete -f "$(HERE)/charts/vanilla/$(config).yaml" || exit 1;)
 
+.PHONY: deploy/helm
+deploy/helm:
+	helm install "$(HERE)/charts/kubernetes-challenge" \
+		--name $(NAME) \
+		--set username=$(USERNAME)
+
+.PHONY: clean/helm
+clean/helm:
+	helm del --purge $(NAME)
+
 .PHONY: test
 test: test/init test/service test/ingress
 

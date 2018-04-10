@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{.Chart.Name}}
+  labels:
+    app: {{.Chart.Name}}
+    chart: {{.Chart.Name}}-{{.Chart.Version}}
+    release: {{ .Release.Name }}
+spec:
+  backend:
+    serviceName: {{.Chart.Name}}
+    servicePort: 3000
