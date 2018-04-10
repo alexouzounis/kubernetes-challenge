@@ -1,0 +1,47 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: {{.Chart.Name}}
+  labels:
+    app: {{.Chart.Name}}
+    chart: {{.Chart.Name}}-{{.Chart.Version}}
+    release: {{ .Release.Name }}
+spec:
+  replicas: {{.Values.replicas}}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: {{.Chart.Name}}
+        chart: {{.Chart.Name}}-{{.Chart.Version}}
+        release: {{ .Release.Name }}
+    spec:
+      containers:
+      - name: {{ .Chart.Name }}
+        envFrom:
+          - configMapRef:
+              name: {{.Chart.Name}}
+        resources:
+          requests:
+            cpu: {{.Values.resources.requests.cpu}}
+            memory: {{.Values.resources.requests.memory}}
+          limits:
+            cpu: {{.Values.resources.limits.cpu}}
+            memory: {{.Values.resources.limits.memory}}
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 3000
+            httpHeaders:
+              - name: User-Agent
+                value: kubernetes-readiness-probe
+          initialDelaySeconds: {{.Values.healthchecks.readiness.initialDelaySeconds}}
+          periodSeconds: {{.Values.healthchecks.readiness.periodSeconds}}
+        image: kubernetes-challenge:{{.Values.version}}
+        imagePullPolicy: {{.Values.policy}}
+        ports:
+        - containerPort: 3000

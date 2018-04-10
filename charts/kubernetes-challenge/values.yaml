@@ -1,0 +1,15 @@
+username: Peter
+version: latest
+policy: IfNotPresent
+replicas: 1
+resources:
+  requests:
+    cpu: 100m
+    memory: 128Mi
+  limits:
+    cpu: 100m
+    memory: 128Mi
+healthchecks:
+  readiness:
+    initialDelaySeconds: 5
+    periodSeconds: 5
