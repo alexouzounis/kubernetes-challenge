@@ -1,5 +1,5 @@
 {
-  "name": "kubernetes-challenge",
+  "name": "hello-unknown",
   "version": "0.0.1",
   "description": "Kubernetes challenge",
   "repository": "",
@@ -7,9 +7,9 @@
   "scripts": {
     "start": "node app.js"
   },
-  "repository" :
-  { "type" : "git"
-  , "url" : "https://github.com/alexouzounis/kubernetes-challenge.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexouzounis/kubernetes-challenge.git"
   },
   "license": "Apache-2.0",
   "dependencies": {
