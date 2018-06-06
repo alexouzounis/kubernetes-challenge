@@ -14,3 +14,4 @@ spec:
         backend:
           serviceName: k8schl-service
           servicePort: 80
+{{- end }}
