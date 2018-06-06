@@ -17,6 +17,9 @@ spec:
       containers:
       - name: k8schl
         image: k8schl-app:latest
+        envFrom:
+        - configMapRef:
+            name: k8schl-config
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
