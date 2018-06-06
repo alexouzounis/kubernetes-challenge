@@ -5,3 +5,5 @@ Your release is named {{ .Release.Name }}.
 To access the service, open your browser or curl the following endpoint:
 
 {{ .Values.minikubeEp }}:80
+
+NOTE: It may take a minute for all components to become available.
