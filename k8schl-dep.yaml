@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8sch-deployment
+  labels:
+    app: k8schl
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: k8schl
+  template:
+    metadata:
+      labels:
+        app: k8schl
+    spec:
+      containers:
+      - name: k8schl
+        image: k8schl-app:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
