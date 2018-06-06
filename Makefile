@@ -1,3 +1,5 @@
+test:
+	cd app; npm test
 setup:
 	# Enable the Ingress addon to allow
 	# application to be exposed on host.
