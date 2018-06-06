@@ -43,8 +43,8 @@ the application is served at
 This solution assumes that Minikube has already been started and
 configured `kubectl` to use it as the current context. This can be done
 by running `minikube start`. It also requires that the Tiller agent is
-running and in a ready state on your Minikube cluster which can be done
-by running `helm init`
+running and in a ready state on your Minikube cluster, which can be done
+by running  the command`helm init` at the terminal with Helm installed.
 
 
 ## Build
@@ -56,7 +56,7 @@ will carry out the following steps:
 * Build the application container and make it available to Minikube's
 docker daemon (locally)
 
-However `make deploy` (explained below) will carry out those steps as well as
+`make deploy` (explained below) will also carry out those steps as well as
 deploy the application over Minikube.
 
 
@@ -65,18 +65,20 @@ deploy the application over Minikube.
 To deploy the application simply run `make deploy` in the project root, which
 will run all the steps defined in the "Build" step above in addition to a
 `helm install` that will launch the Kubernetes defined Deployment, Service,
-ConfigMap and Ingress required to make the application reachable on your host.
+ConfigMap and Ingress required to fully deploy the application on Minikube
+and make it available to the host.
 
 The helm notes displayed at the end of the output will guide you on how
 to access the service endpoint, which will be reachable at the running
-Minikube VM's IP on port 80 (this can also be found by running `minikube ip`
-at the terminal).
+Minikube VM's IP on port 80 (Minikube's IP can also be found by running
+`minikube ip` at the terminal).
 
 
 ## Teardown
 
-To tear the application down run `make teardown` delete the helm release
-both on your Minikube instance as well as locally via a `helm delete --purge`.
+To tear the application down run `make teardown`, which will
+delete the helm release both on your Minikube instance as well as locally
+via a `helm delete --purge` command.
 
 
 ## Test
