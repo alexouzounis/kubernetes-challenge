@@ -5,7 +5,8 @@
   "repository": "",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "echo Insert tests here!"
   },
   "repository" :
   { "type" : "git"
