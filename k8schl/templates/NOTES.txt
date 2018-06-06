@@ -1,1 +1,7 @@
-1. Get the application URL by running these commands:
+Thank you for installing {{ .Chart.Name }} on your minikube!
+
+Your release is named {{ .Release.Name }}.
+
+To access the service, open your browser or curl the following endpoint:
+
+{{ .Values.minikubeEp }}:80
