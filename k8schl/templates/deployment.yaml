@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Chart.Name }}-deployment
+  name: {{ .Release.Name }}-deployment
   labels:
-    app: k8schl
+    app: {{ .Release.Name }}
 spec:
-  replicas: {{ .Values.replicacount }}
+  replicas: {{ .Values.app.replicaCount }}
   selector:
     matchLabels:
-      app: k8schl
+      app: {{ .Release.Name }}
   template:
     metadata:
       labels:
-        app: k8schl
+        app: {{ .Release.Name }}
     spec:
       containers:
-      - name: k8schl
+      - name: {{ .Release.Name }}
         image: k8schl-app:latest
         envFrom:
         - configMapRef:
-            name: k8schl-config
-        imagePullPolicy: IfNotPresent
+            name: {{ .Release.Name }}-config
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
-        - containerPort: 3000
+        - containerPort: {{ .Values.app.port }}

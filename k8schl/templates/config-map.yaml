@@ -1,6 +1,6 @@
 kind: ConfigMap
 apiVersion: v1
 metadata:
-  name: {{ .Chart.Name }}-config
+  name: {{ .Release.Name }}-config
 data:
-  NAME: {{ .Values.displayName }}
+  NAME: {{ .Values.app.displayName | quote }}

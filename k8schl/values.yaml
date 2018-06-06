@@ -2,24 +2,27 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-displayName: matt
-
-replicaCount: 1
+app:
+  port: 3000
+  # Use this to declare the name displayed from the app.
+  displayName: matt
+  replicaCount: 1
 
 image:
-  repository: k8schl
-  tag: stable
+  repository: k8schl-app
+  tag: latest
   pullPolicy: IfNotPresent
 
 service:
   type: NodePort
   port: 80
+  protocol: TCP
 
 ingress:
   enabled: true
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
   path: /
   hosts:
     - chart-example.local

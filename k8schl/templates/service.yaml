@@ -1,12 +1,12 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: k8schl-service
+  name: {{ .Release.Name }}-service
 spec:
   selector:
-    app: k8schl
+    app: {{ .Release.Name }}
   ports:
-  - protocol: TCP
-    port: 80
-    targetPort: 3000
-  type: NodePort
+  - protocol: {{ .Values.service.protocol }}
+    port: {{ .Values.service.port }}
+    targetPort: {{ .Values.app.port }}
+  type: {{ .Values.service.type }}
