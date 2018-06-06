@@ -1,14 +1,16 @@
+{{- if .Values.ingress.enabled -}}
+{{- $ingressPath := .Values.ingress.path -}}
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: k8schl-ingress
-  #annotations:
-  #  nginx.ingress.kubernetes.io/rewrite-target: /
+  annotations:
+    ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
   - http:
       paths:
-      - path: /
+      - path: {{ $ingressPath }}
         backend:
           serviceName: k8schl-service
           servicePort: 80

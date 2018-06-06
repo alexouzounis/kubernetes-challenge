@@ -1,11 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: k8sch-deployment
+  name: {{ .Chart.Name }}-deployment
   labels:
     app: k8schl
 spec:
-  replicas: 3
+  replicas: {{ .Values.replicacount }}
   selector:
     matchLabels:
       app: k8schl
